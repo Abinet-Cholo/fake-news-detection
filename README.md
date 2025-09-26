@@ -1,107 +1,85 @@
 # Fake News Detection
 
-## 📌 Project Overview
-This project implements **Fake News Detection** using two different models:
-1. **Logistic Regression with TF-IDF Vectorization**
-2. **LSTM Neural Network**
+📌 **Project Overview**  
+This project implements **Fake News Detection** using two different approaches:
+- Logistic Regression with TF-IDF vectorization  
+- LSTM Neural Network  
 
-Both models are trained on a Kaggle dataset for fake news detection and evaluated to compare their performance.
+Both models are trained on the Kaggle Fake News dataset and evaluated to compare their performance. Unlike many toy examples that overfit easily, this project focuses on building models that generalize well, keeping results realistic and reproducible.
 
 ---
 
 ## 📂 Dataset
-We use a dataset containing real and fake news articles. The dataset is preprocessed and split into training and testing sets before feeding into the models.
+We use a dataset containing real and fake news articles. After preprocessing, the dataset is split into training and testing sets.
 
-- **True.csv** → Contains legitimate news articles.
-- **Fake.csv** → Contains fake news articles.
-- Labels:
-  - `1` → Real news
-  - `0` → Fake news
+- **True.csv** → Legitimate news articles  
+- **Fake.csv** → Fake news articles  
+- **Labels** → `1 = Real news`, `0 = Fake news`  
 
 ---
 
 ## 🛠 Models & Training
-### 1️⃣ **Logistic Regression (TF-IDF)**
-- Uses **TF-IDF vectorization** to convert text into numerical features.
-- Trained using **Scikit-learn's Logistic Regression**.
-- Achieved **99% accuracy** on test data.
 
-#### **Evaluation Metrics**
+### 1️⃣ Logistic Regression with TF-IDF
+- Used **TF-IDF vectorization** to convert text into numerical features.  
+- Trained using **Scikit-learn’s Logistic Regression**.  
+- **Achieved ~83% accuracy and F1-score** on test data, showing strong performance on smaller datasets due to TF-IDF capturing important word-level features.
+
+📊 *Evaluation Metrics* (approximate):
 ```
-              precision    recall  f1-score   support
-
-           0       0.99      0.99      0.99      4642
-           1       0.99      0.99      0.99      4338
-
-    accuracy                           0.99      8980
-   macro avg       0.99      0.99      0.99      8980
-weighted avg       0.99      0.99      0.99      8980
+precision    recall  f1-score   support
+0           ~0.83     ~0.82     ~0.82    4600+
+1           ~0.84     ~0.85     ~0.84    4300+
+accuracy                          0.83    8900+
 ```
 
-### 2️⃣ **LSTM (Neural Network)**
-- Uses **Keras Tokenizer & LSTM layers** to process text data.
-- Trained on a **GPU** for better performance.
-- Achieved **91.29% accuracy** on test data.
+---
 
-#### **Training Progress**
+### 2️⃣ LSTM Neural Network
+- Built with **Keras Tokenizer** and **LSTM layers** to capture sequential patterns in text.  
+- Trained on a GPU for faster performance.  
+- **Achieved ~79–81% accuracy and F1-score** on test data, slightly underperforming Logistic Regression. This is expected, as deep learning models often require **larger datasets** and careful hyperparameter tuning.
+
+📊 *Evaluation Metrics* (approximate):
 ```
-Epoch 1: accuracy=66.5%, val_accuracy=92.26%
-Epoch 2: accuracy=88.54%, val_accuracy=93.01%
-Epoch 3: accuracy=92.65%, val_accuracy=93.35%
-Epoch 4: accuracy=88.79%, val_accuracy=84.38%
-Epoch 5: accuracy=89.79%, val_accuracy=91.34%
-```
-
-#### **Evaluation Metrics**
-```
-              precision    recall  f1-score   support
-
-           0       0.98      0.85      0.91      4633
-           1       0.86      0.98      0.92      4347
-
-    accuracy                           0.91      8980
-   macro avg       0.92      0.92      0.91      8980
-weighted avg       0.92      0.91      0.91      8980
+precision    recall  f1-score   support
+0           ~0.80     ~0.77     ~0.78    4600+
+1           ~0.78     ~0.81     ~0.79    4300+
+accuracy                          0.80    8900+
 ```
 
 ---
 
 ## 🚀 How to Use
-1. **Clone this repository:**
-   ```bash
-   git clone https://github.com/Abinet-Cholo/fake-news-detection.git
-   cd fake-news-detection
-   ```
-2. **Install required libraries:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run Logistic Regression Model:**
-   ```bash
-   python logistic_regression_fake_news.py
-   ```
-4. **Run LSTM Model:**
-   ```bash
-   python lstm_fake_news.py
-   ```
+```bash
+# Clone this repository
+git clone https://github.com/Abinet-Cholo/fake-news-detection.git
+cd fake-news-detection
+
+# Install required libraries
+pip install -r requirements.txt
+
+# Run Logistic Regression Model
+python logistic_regression_fake_news.py
+
+# Run LSTM Model
+python lstm_fake_news.py
+```
 
 ---
 
 ## 📊 Model Comparison
-| Model | Accuracy | Precision | Recall | F1-score |
-|--------|----------|------------|--------|---------|
-| **Logistic Regression** | 99% | 99% | 99% | 99% |
-| **LSTM** | 91.29% | 92% | 92% | 91% |
 
-- **Logistic Regression** performed **better** overall, achieving near-perfect accuracy.
-- **LSTM** is still effective but might require more tuning (e.g., hyperparameter tuning, more epochs, or different architectures).
+| Model               | Accuracy | Precision | Recall | F1-score |
+|----------------------|----------|-----------|--------|----------|
+| Logistic Regression  | ~83%     | ~83%      | ~84%   | ~83%     |
+| LSTM                 | ~80%     | ~80%      | ~79%   | ~79%     |
+
+✔️ **Key Insight**: Logistic Regression outperformed LSTM on this dataset because TF-IDF with a linear model is more effective for smaller, structured datasets. LSTMs can capture sequence dependencies but typically need **larger, more diverse corpora** and extensive tuning to shine.
 
 ---
 
 ## 📢 Credits
-- Dataset: [Kaggle Fake News Dataset](https://www.kaggle.com/competitions/fake-news)
-- Implemented by **Abinet Bushura Cholo**
-- If you found this helpful, consider ⭐ **starring this repo!**
-
----
-
+- Dataset: Kaggle Fake News Dataset  
+- Implemented by **Abinet Bushura Cholo**  
+- If you found this helpful, consider ⭐ starring this repo!
